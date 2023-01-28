@@ -17,13 +17,13 @@ class Matche
 
     #[ORM\ManyToOne(inversedBy: 'matches')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Player $Player1_id = null;
+    private ?Player $Player1 = null;
 
     #[ORM\ManyToOne(inversedBy: 'matches')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Player $Player2_id = null;
+    private ?Player $Player2 = null;
 
-    #[ORM\OneToMany(mappedBy: 'Matche_id', targetEntity: Score::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'Matche', targetEntity: Score::class)]
     private Collection $scores;
 
     public function __construct()
@@ -36,26 +36,26 @@ class Matche
         return $this->id;
     }
 
-    public function getPlayer1Id(): ?Player
+    public function getPlayer1(): ?Player
     {
-        return $this->Player1_id;
+        return $this->Player1;
     }
 
-    public function setPlayer1Id(?Player $Player1_id): self
+    public function setPlayer1(?Player $Player1): self
     {
-        $this->Player1_id = $Player1_id;
+        $this->Player1 = $Player1;
 
         return $this;
     }
 
-    public function getPlayer2Id(): ?Player
+    public function getPlayer2(): ?Player
     {
-        return $this->Player2_id;
+        return $this->Player2;
     }
 
-    public function setPlayer2Id(?Player $Player2_id): self
+    public function setPlayer2(?Player $Player2): self
     {
-        $this->Player2_id = $Player2_id;
+        $this->Player2 = $Player2;
 
         return $this;
     }
@@ -72,7 +72,7 @@ class Matche
     {
         if (!$this->scores->contains($score)) {
             $this->scores->add($score);
-            $score->setMatcheId($this);
+            $score->setMatche($this);
         }
 
         return $this;
@@ -82,8 +82,8 @@ class Matche
     {
         if ($this->scores->removeElement($score)) {
             // set the owning side to null (unless already changed)
-            if ($score->getMatcheId() === $this) {
-                $score->setMatcheId(null);
+            if ($score->getMatche() === $this) {
+                $score->setMatche(null);
             }
         }
 

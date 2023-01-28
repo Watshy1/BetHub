@@ -30,12 +30,12 @@ class Player
 
     #[ORM\ManyToOne(inversedBy: 'players')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Country $Country_id = null;
+    private ?Country $Country = null;
 
-    #[ORM\OneToMany(mappedBy: 'Player1_id', targetEntity: Matche::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'Player1', targetEntity: Matche::class)]
     private Collection $matches;
 
-    #[ORM\OneToMany(mappedBy: 'Player_id', targetEntity: Score::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'Player', targetEntity: Score::class)]
     private Collection $scores;
 
     public function __construct()
@@ -97,14 +97,14 @@ class Player
         return $this;
     }
 
-    public function getCountryId(): ?Country
+    public function getCountry(): ?Country
     {
-        return $this->Country_id;
+        return $this->Country;
     }
 
-    public function setCountryId(?Country $Country_id): self
+    public function setCountry(?Country $Country): self
     {
-        $this->Country_id = $Country_id;
+        $this->Country = $Country;
 
         return $this;
     }
@@ -121,7 +121,7 @@ class Player
     {
         if (!$this->matches->contains($match)) {
             $this->matches->add($match);
-            $match->setPlayer1Id($this);
+            $match->setPlayer1($this);
         }
 
         return $this;
@@ -131,8 +131,8 @@ class Player
     {
         if ($this->matches->removeElement($match)) {
             // set the owning side to null (unless already changed)
-            if ($match->getPlayer1Id() === $this) {
-                $match->setPlayer1Id(null);
+            if ($match->getPlayer1() === $this) {
+                $match->setPlayer1(null);
             }
         }
 
@@ -151,7 +151,7 @@ class Player
     {
         if (!$this->scores->contains($score)) {
             $this->scores->add($score);
-            $score->setPlayerId($this);
+            $score->setPlayer($this);
         }
 
         return $this;
@@ -161,8 +161,8 @@ class Player
     {
         if ($this->scores->removeElement($score)) {
             // set the owning side to null (unless already changed)
-            if ($score->getPlayerId() === $this) {
-                $score->setPlayerId(null);
+            if ($score->getPlayer() === $this) {
+                $score->setPlayer(null);
             }
         }
 

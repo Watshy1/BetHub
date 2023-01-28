@@ -18,7 +18,7 @@ class Difficulty
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'Difficulty_id', targetEntity: User::class)]
+    #[ORM\OneToMany(mappedBy: 'Difficulty', targetEntity: User::class)]
     private Collection $users;
 
     public function __construct()
@@ -55,7 +55,7 @@ class Difficulty
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->setDifficultyId($this);
+            $user->setDifficulty($this);
         }
 
         return $this;
@@ -65,8 +65,8 @@ class Difficulty
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getDifficultyId() === $this) {
-                $user->setDifficultyId(null);
+            if ($user->getDifficulty() === $this) {
+                $user->setDifficulty(null);
             }
         }
 

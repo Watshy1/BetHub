@@ -34,7 +34,7 @@ class User
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Difficulty $Difficulty_id = null;
+    private ?Difficulty $Difficulty = null;
 
     public function getId(): ?int
     {
@@ -113,14 +113,14 @@ class User
         return $this;
     }
 
-    public function getDifficultyId(): ?Difficulty
+    public function getDifficulty(): ?Difficulty
     {
-        return $this->Difficulty_id;
+        return $this->Difficulty;
     }
 
-    public function setDifficultyId(?Difficulty $Difficulty_id): self
+    public function setDifficulty(?Difficulty $Difficulty): self
     {
-        $this->Difficulty_id = $Difficulty_id;
+        $this->Difficulty = $Difficulty;
 
         return $this;
     }

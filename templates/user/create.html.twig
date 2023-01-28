@@ -15,6 +15,12 @@
 		<input type="password" id="password" name="password" required class="border border-gray-400 p-2 w-full">
         <label for="passwordConfirm" class="block text-gray-700 font-medium mb-2">Retaper le mot de passe :</label>
 		<input type="password" id="passwordConfirm" name="passwordConfirm" required class="border border-gray-400 p-2 w-full">
+        <label for="difficulty" class="block text-gray-700 font-medium mb-2">Choose difficulty</label>
+        <select name="difficulty" id="difficulty" class="border border-gray-400 p-2 w-full">
+            {% for difficulty in difficulties %}
+                <option value="{{ difficulty.id }}">{{ difficulty.name }}</option>
+            {% endfor %}
+        </select>
 		<input type="submit" value="Créer l'utilisateur" class="bg-indigo-500 text-white p-2 rounded-lg hover:bg-indigo-600 mt-8">
 	</form>
 

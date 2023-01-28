@@ -21,11 +21,11 @@ class Score
 
     #[ORM\ManyToOne(inversedBy: 'scores')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Matche $Matche_id = null;
+    private ?Matche $Matche = null;
 
     #[ORM\ManyToOne(inversedBy: 'scores')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Player $Player_id = null;
+    private ?Player $Player = null;
 
     public function getId(): ?int
     {
@@ -56,26 +56,26 @@ class Score
         return $this;
     }
 
-    public function getMatcheId(): ?Matche
+    public function getMatche(): ?Matche
     {
-        return $this->Matche_id;
+        return $this->Matche;
     }
 
-    public function setMatcheId(?Matche $Matche_id): self
+    public function setMatche(?Matche $Matche): self
     {
-        $this->Matche_id = $Matche_id;
+        $this->Matche = $Matche;
 
         return $this;
     }
 
-    public function getPlayerId(): ?Player
+    public function getPlayer(): ?Player
     {
-        return $this->Player_id;
+        return $this->Player;
     }
 
-    public function setPlayerId(?Player $Player_id): self
+    public function setPlayer(?Player $Player): self
     {
-        $this->Player_id = $Player_id;
+        $this->Player = $Player;
 
         return $this;
     }

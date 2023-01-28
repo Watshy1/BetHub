@@ -18,7 +18,7 @@ class Country
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'Country_id', targetEntity: Player::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'Country', targetEntity: Player::class)]
     private Collection $players;
 
     public function __construct()
@@ -55,7 +55,7 @@ class Country
     {
         if (!$this->players->contains($player)) {
             $this->players->add($player);
-            $player->setCountryId($this);
+            $player->setCountry($this);
         }
 
         return $this;
@@ -65,8 +65,8 @@ class Country
     {
         if ($this->players->removeElement($player)) {
             // set the owning side to null (unless already changed)
-            if ($player->getCountryId() === $this) {
-                $player->setCountryId(null);
+            if ($player->getCountry() === $this) {
+                $player->setCountry(null);
             }
         }
 
