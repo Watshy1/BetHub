@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MatchesRepository;
+use App\Repository\MatcheRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MatchesRepository::class)]
-class Matches
+#[ORM\Entity(repositoryClass: MatcheRepository::class)]
+class Matche
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,13 +17,13 @@ class Matches
 
     #[ORM\ManyToOne(inversedBy: 'matches')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Players $Players1_id = null;
+    private ?Player $Player1_id = null;
 
     #[ORM\ManyToOne(inversedBy: 'matches')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Players $Players2_id = null;
+    private ?Player $Player2_id = null;
 
-    #[ORM\OneToMany(mappedBy: 'Matches_id', targetEntity: Scores::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'Matche_id', targetEntity: Score::class, orphanRemoval: true)]
     private Collection $scores;
 
     public function __construct()
@@ -36,54 +36,54 @@ class Matches
         return $this->id;
     }
 
-    public function getPlayers1Id(): ?Players
+    public function getPlayer1Id(): ?Player
     {
-        return $this->Players1_id;
+        return $this->Player1_id;
     }
 
-    public function setPlayers1Id(?Players $Players1_id): self
+    public function setPlayer1Id(?Player $Player1_id): self
     {
-        $this->Players1_id = $Players1_id;
+        $this->Player1_id = $Player1_id;
 
         return $this;
     }
 
-    public function getPlayers2Id(): ?Players
+    public function getPlayer2Id(): ?Player
     {
-        return $this->Players2_id;
+        return $this->Player2_id;
     }
 
-    public function setPlayers2Id(?Players $Players2_id): self
+    public function setPlayer2Id(?Player $Player2_id): self
     {
-        $this->Players2_id = $Players2_id;
+        $this->Player2_id = $Player2_id;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Scores>
+     * @return Collection<int, Score>
      */
     public function getScores(): Collection
     {
         return $this->scores;
     }
 
-    public function addScore(Scores $score): self
+    public function addScore(Score $score): self
     {
         if (!$this->scores->contains($score)) {
             $this->scores->add($score);
-            $score->setMatchesId($this);
+            $score->setMatcheId($this);
         }
 
         return $this;
     }
 
-    public function removeScore(Scores $score): self
+    public function removeScore(Score $score): self
     {
         if ($this->scores->removeElement($score)) {
             // set the owning side to null (unless already changed)
-            if ($score->getMatchesId() === $this) {
-                $score->setMatchesId(null);
+            if ($score->getMatcheId() === $this) {
+                $score->setMatcheId(null);
             }
         }
 

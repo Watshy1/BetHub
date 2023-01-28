@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: UsersRepository::class)]
-class Users
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: '`user`')]
+class User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,7 +34,7 @@ class Users
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Difficulties $Difficulties_id = null;
+    private ?Difficulty $Difficulty_id = null;
 
     public function getId(): ?int
     {
@@ -112,14 +113,14 @@ class Users
         return $this;
     }
 
-    public function getDifficultiesId(): ?Difficulties
+    public function getDifficultyId(): ?Difficulty
     {
-        return $this->Difficulties_id;
+        return $this->Difficulty_id;
     }
 
-    public function setDifficultiesId(?Difficulties $Difficulties_id): self
+    public function setDifficultyId(?Difficulty $Difficulty_id): self
     {
-        $this->Difficulties_id = $Difficulties_id;
+        $this->Difficulty_id = $Difficulty_id;
 
         return $this;
     }

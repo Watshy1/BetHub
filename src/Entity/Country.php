@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CountriesRepository;
+use App\Repository\CountryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CountriesRepository::class)]
-class Countries
+#[ORM\Entity(repositoryClass: CountryRepository::class)]
+class Country
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,7 +18,7 @@ class Countries
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'Countries_id', targetEntity: Players::class)]
+    #[ORM\OneToMany(mappedBy: 'Country_id', targetEntity: Player::class, orphanRemoval: true)]
     private Collection $players;
 
     public function __construct()
@@ -44,29 +44,29 @@ class Countries
     }
 
     /**
-     * @return Collection<int, Players>
+     * @return Collection<int, Player>
      */
     public function getPlayers(): Collection
     {
         return $this->players;
     }
 
-    public function addPlayer(Players $player): self
+    public function addPlayer(Player $player): self
     {
         if (!$this->players->contains($player)) {
             $this->players->add($player);
-            $player->setCountriesId($this);
+            $player->setCountryId($this);
         }
 
         return $this;
     }
 
-    public function removePlayer(Players $player): self
+    public function removePlayer(Player $player): self
     {
         if ($this->players->removeElement($player)) {
             // set the owning side to null (unless already changed)
-            if ($player->getCountriesId() === $this) {
-                $player->setCountriesId(null);
+            if ($player->getCountryId() === $this) {
+                $player->setCountryId(null);
             }
         }
 

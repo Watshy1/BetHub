@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Countries;
+use App\Entity\Country;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Countries>
+ * @extends ServiceEntityRepository<Country>
  *
- * @method Countries|null find($id, $lockMode = null, $lockVersion = null)
- * @method Countries|null findOneBy(array $criteria, array $orderBy = null)
- * @method Countries[]    findAll()
- * @method Countries[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Country|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Country|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Country[]    findAll()
+ * @method Country[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CountriesRepository extends ServiceEntityRepository
+class CountryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Countries::class);
+        parent::__construct($registry, Country::class);
     }
 
-    public function save(Countries $entity, bool $flush = false): void
+    public function save(Country $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class CountriesRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Countries $entity, bool $flush = false): void
+    public function remove(Country $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class CountriesRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Countries[] Returns an array of Countries objects
+//     * @return Country[] Returns an array of Country objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class CountriesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Countries
+//    public function findOneBySomeField($value): ?Country
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')

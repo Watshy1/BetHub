@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Matches;
+use App\Entity\Matche;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Matches>
+ * @extends ServiceEntityRepository<Matche>
  *
- * @method Matches|null find($id, $lockMode = null, $lockVersion = null)
- * @method Matches|null findOneBy(array $criteria, array $orderBy = null)
- * @method Matches[]    findAll()
- * @method Matches[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Matche|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Matche|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Matche[]    findAll()
+ * @method Matche[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MatchesRepository extends ServiceEntityRepository
+class MatcheRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Matches::class);
+        parent::__construct($registry, Matche::class);
     }
 
-    public function save(Matches $entity, bool $flush = false): void
+    public function save(Matche $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class MatchesRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Matches $entity, bool $flush = false): void
+    public function remove(Matche $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class MatchesRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Matches[] Returns an array of Matches objects
+//     * @return Matche[] Returns an array of Matche objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class MatchesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Matches
+//    public function findOneBySomeField($value): ?Matche
 //    {
 //        return $this->createQueryBuilder('m')
 //            ->andWhere('m.exampleField = :val')

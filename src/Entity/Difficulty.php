@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\DifficultiesRepository;
+use App\Repository\DifficultyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: DifficultiesRepository::class)]
-class Difficulties
+#[ORM\Entity(repositoryClass: DifficultyRepository::class)]
+class Difficulty
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,7 +18,7 @@ class Difficulties
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'Difficulties_id', targetEntity: Users::class)]
+    #[ORM\OneToMany(mappedBy: 'Difficulty_id', targetEntity: User::class)]
     private Collection $users;
 
     public function __construct()
@@ -44,29 +44,29 @@ class Difficulties
     }
 
     /**
-     * @return Collection<int, Users>
+     * @return Collection<int, User>
      */
     public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function addUser(Users $user): self
+    public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->setDifficultiesId($this);
+            $user->setDifficultyId($this);
         }
 
         return $this;
     }
 
-    public function removeUser(Users $user): self
+    public function removeUser(User $user): self
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getDifficultiesId() === $this) {
-                $user->setDifficultiesId(null);
+            if ($user->getDifficultyId() === $this) {
+                $user->setDifficultyId(null);
             }
         }
 

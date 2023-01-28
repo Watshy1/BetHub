@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ScoresRepository;
+use App\Repository\ScoreRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ScoresRepository::class)]
-class Scores
+#[ORM\Entity(repositoryClass: ScoreRepository::class)]
+class Score
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,11 +21,11 @@ class Scores
 
     #[ORM\ManyToOne(inversedBy: 'scores')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Matches $Matches_id = null;
+    private ?Matche $Matche_id = null;
 
     #[ORM\ManyToOne(inversedBy: 'scores')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Players $Players_id = null;
+    private ?Player $Player_id = null;
 
     public function getId(): ?int
     {
@@ -56,26 +56,26 @@ class Scores
         return $this;
     }
 
-    public function getMatchesId(): ?Matches
+    public function getMatcheId(): ?Matche
     {
-        return $this->Matches_id;
+        return $this->Matche_id;
     }
 
-    public function setMatchesId(?Matches $Matches_id): self
+    public function setMatcheId(?Matche $Matche_id): self
     {
-        $this->Matches_id = $Matches_id;
+        $this->Matche_id = $Matche_id;
 
         return $this;
     }
 
-    public function getPlayersId(): ?Players
+    public function getPlayerId(): ?Player
     {
-        return $this->Players_id;
+        return $this->Player_id;
     }
 
-    public function setPlayersId(?Players $Players_id): self
+    public function setPlayerId(?Player $Player_id): self
     {
-        $this->Players_id = $Players_id;
+        $this->Player_id = $Player_id;
 
         return $this;
     }
