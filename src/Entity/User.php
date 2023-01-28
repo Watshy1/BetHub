@@ -14,40 +14,65 @@ class User
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $firstName = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $lastName = null;
+    private ?string $first_name = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $last_name = null;
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
+
+    #[ORM\Column]
+    private ?int $wallet = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Difficulty $Difficulty = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFirstName(): ?string
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->firstName;
+        return $this->created_at;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
-        $this->firstName = $firstName;
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->first_name;
+    }
+
+    public function setFirstName(string $first_name): self
+    {
+        $this->first_name = $first_name;
 
         return $this;
     }
 
     public function getLastName(): ?string
     {
-        return $this->lastName;
+        return $this->last_name;
     }
 
-    public function setLastName(string $lastName): self
+    public function setLastName(string $last_name): self
     {
-        $this->lastName = $lastName;
+        $this->last_name = $last_name;
 
         return $this;
     }
@@ -60,6 +85,42 @@ class User
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getWallet(): ?int
+    {
+        return $this->wallet;
+    }
+
+    public function setWallet(int $wallet): self
+    {
+        $this->wallet = $wallet;
+
+        return $this;
+    }
+
+    public function getDifficulty(): ?Difficulty
+    {
+        return $this->Difficulty;
+    }
+
+    public function setDifficulty(?Difficulty $Difficulty): self
+    {
+        $this->Difficulty = $Difficulty;
 
         return $this;
     }
