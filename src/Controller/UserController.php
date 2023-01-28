@@ -20,17 +20,18 @@ class UserController extends AbstractController
         $difficultyRepository = $doctrine->getRepository(Difficulty::class);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = $_POST['username'];
+            $firstName = $_POST['firstName'];
+            $lastName = $_POST['lastName'];
             $email = $_POST['email'];
             $password = $_POST['password'];
             $passwordConfirm = $_POST['passwordConfirm'];
             $difficulty = $_POST['difficulty'];
 
-            if ($password == $passwordConfirm) {
+            if (isset($firstName) && isset($lastName) && isset($email) && isset($difficulty) && $password == $passwordConfirm) {
                 $user = new User();
                 $user->setCreatedAt(new \DateTimeImmutable());
-                $user->setFirstName($username);
-                $user->setLastName($username);
+                $user->setFirstName($firstName);
+                $user->setLastName($lastName);
                 $user->setEmail($email);
                 $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
                 $user->setDifficulty($difficultyRepository->find($difficulty));
@@ -45,8 +46,6 @@ class UserController extends AbstractController
 
                 $entityManager->persist($user);
                 $entityManager->flush();
-            } else {
-                echo 'Passwords do not match';
             }
         }
 
