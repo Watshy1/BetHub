@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+{% set user = app.session.get('user') %}
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -16,8 +19,16 @@
 	</head>
 	<body class="bg-white">
 		<nav class="bg-gray-800 p-2 flex justify-between items-center">
-			<a class="text-white font-medium hover:text-gray-400" href="/">Bethub</a>
-			{% if app.session.get('user') %}
+			<div class="flex items-center gap-5">
+				<a class="text-white font-medium hover:text-gray-400" href="/">Bethub</a>
+				{% if user %}
+					<div class="bg-gray-700 text-white font-medium py-2 px-4 rounded-lg">
+						Wallet:
+						{{ user.wallet }}
+					</div>
+				{% endif %}
+			</div>
+			{% if user %}
 				<div>
 					<a class="text-white hover:text-gray-400" href="{{ path('app_user_logout') }}">
 						<button class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
