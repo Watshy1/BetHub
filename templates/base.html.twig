@@ -17,11 +17,18 @@
 	<body class="bg-white">
 		<nav class="bg-gray-800 p-2 flex justify-between items-center">
 			<a class="text-white font-medium hover:text-gray-400" href="/">Bethub</a>
-			<a class="text-white hover:text-gray-400" href="{{ path('app_user_create') }}">
-				<button class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
-					S'inscrire
-				</button>
-			</a>
+			<div>
+				<a class="text-white hover:text-gray-400" href="{{ path('app_user_create') }}">
+					<button class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+						S'inscrire
+					</button>
+				</a>
+				<a class="text-white hover:text-gray-400" href="{{ path('app_user_login') }}">
+					<button class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+						Se connecter
+					</button>
+				</a>
+			</div>
 		</nav>
 
 		{% block body %}{% endblock %}
