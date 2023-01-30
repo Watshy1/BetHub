@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Hello UserController!
+	Créer un utilisateur
 {% endblock %}
 
 {% block body %}
@@ -17,7 +17,7 @@
 		<input type="password" id="password" name="password" required class="border border-gray-400 p-2 w-full">
 		<label for="passwordConfirm" class="block text-gray-700 font-medium mb-2">Retaper le mot de passe :</label>
 		<input type="password" id="passwordConfirm" name="passwordConfirm" required class="border border-gray-400 p-2 w-full">
-		<label for="difficulty" class="block text-gray-700 font-medium mb-2">Choose difficulty</label>
+		<label for="difficulty" class="block text-gray-700 font-medium mb-2">Choisir la difficulté</label>
 		<select name="difficulty" id="difficulty" class="border border-gray-400 p-2 w-full">
 			{% for difficulty in difficulties %}
 				<option value="{{ difficulty.id }}">{{ difficulty.name }}</option>

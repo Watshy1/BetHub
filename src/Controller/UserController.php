@@ -55,4 +55,33 @@ class UserController extends AbstractController
             'difficulties' => $diffiulties,
         ]);
     }
+
+    #[Route('/user/login', name: 'app_user_login')]
+    public function login(ManagerRegistry $doctrine): Response
+    {
+        $userRepository = $doctrine->getRepository(User::class);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            if (isset($email) && isset($password)) {
+                $user = $userRepository->findOneBy(['email' => $email]);
+
+                if ($user && password_verify($password, $user->getPassword())) {
+                    $_SESSION['user'] = $user;
+                    return $this->redirectToRoute('app_home');
+                }
+            }
+        }
+
+        return $this->render('user/login.html.twig');
+    }
+
+    #[Route('/user/logout', name: 'app_user_logout')]
+    public function logout(): Response
+    {
+        unset($_SESSION['user']);
+        return $this->redirectToRoute('app_home');
+    }
 }
