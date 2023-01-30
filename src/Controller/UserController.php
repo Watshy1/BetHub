@@ -77,4 +77,11 @@ class UserController extends AbstractController
 
         return $this->render('user/login.html.twig');
     }
+
+    #[Route('/user/logout', name: 'app_user_logout')]
+    public function logout(): Response
+    {
+        unset($_SESSION['user']);
+        return $this->redirectToRoute('app_home');
+    }
 }
