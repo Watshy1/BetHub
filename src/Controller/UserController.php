@@ -50,10 +50,10 @@ class UserController extends AbstractController
             }
         }
 
-        $diffiulties = array_reverse($difficultyRepository->findAll());
+        $difficulties = array_reverse($difficultyRepository->findAll());
 
         return $this->render('user/create.html.twig', [
-            'difficulties' => $diffiulties,
+            'difficulties' => $difficulties,
         ]);
     }
 
