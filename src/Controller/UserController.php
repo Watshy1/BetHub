@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -57,8 +58,10 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/login', name: 'app_user_login')]
-    public function login(ManagerRegistry $doctrine): Response
+    public function login(ManagerRegistry $doctrine, Request $request): Response
     {
+        $session = $request->getSession();
+
         $userRepository = $doctrine->getRepository(User::class);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -69,7 +72,7 @@ class UserController extends AbstractController
                 $user = $userRepository->findOneBy(['email' => $email]);
 
                 if ($user && password_verify($password, $user->getPassword())) {
-                    $_SESSION['user'] = $user;
+                    $session->set('user', $user);
                     return $this->redirectToRoute('app_home');
                 }
             }
@@ -79,9 +82,10 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/logout', name: 'app_user_logout')]
-    public function logout(): Response
+    public function logout(Request $request): Response
     {
-        unset($_SESSION['user']);
+        $session = $request->getSession();
+        $session->remove('user');
         return $this->redirectToRoute('app_home');
     }
 }
