@@ -18,13 +18,13 @@
 		{% endblock %}
 	</head>
 	<body class="bg-white">
-		<nav class="bg-gray-800 p-2 flex justify-between items-center">
+		<nav class="bg-gray-800 p-5 flex justify-between items-center">
 			<div class="flex items-center gap-5">
-				<a class="text-white font-medium hover:text-gray-400" href="/">Bethub</a>
+				<a class="text-3xl text-white font-medium hover:text-gray-400" href="/">Bethub</a>
 				{% if user %}
-					<div class="bg-gray-700 text-white font-medium py-2 px-4 rounded-lg">
-						Wallet:
-						{{ user.wallet }}
+					<div class="w-32 bg-gray-700 text-white font-medium py-2 px-4 rounded-lg">
+					<span class="underline">Portefeuille</span> :
+						<span class="text-sm">{{ user.wallet }} €</span>
 					</div>
 				{% endif %}
 			</div>
