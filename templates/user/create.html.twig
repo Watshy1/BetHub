@@ -8,15 +8,15 @@
 
 	<form method="post" action="{{ path('app_user_create') }}" class="flex flex-col items-start gap-4 bg-white p-8 rounded-lg">
 		<label for="firstName" class="block text-gray-700 font-medium mb-2">Prénom :</label>
-		<input type="text" id="firstName" name="firstName" required class="border border-gray-400 p-2 w-full bg-[#3E885B] caret-white text-white">
+		<input type="text" id="firstName" name="firstName" required class="border border-gray-400 p-2 w-full">
 		<label for="lastName" class="block text-gray-700 font-medium mb-2">Nom :</label>
-		<input type="text" id="lastName" name="lastName" required class="border border-gray-400 p-2 w-full bg-[#3E885B] caret-white text-white">
+		<input type="text" id="lastName" name="lastName" required class="border border-gray-400 p-2 w-full">
 		<label for="email" class="block text-gray-700 font-medium mb-2">Adresse e-mail :</label>
-		<input type="email" id="email" name="email" required class="border border-gray-400 p-2 w-full bg-[#3E885B] caret-white text-white">
+		<input type="email" id="email" name="email" required class="border border-gray-400 p-2 w-full">
 		<label for="password" class="block text-gray-700 font-medium mb-2">Mot de passe :</label>
-		<input type="password" id="password" name="password" required class="border border-gray-400 p-2 w-full bg-[#3E885B] caret-white text-white">
+		<input type="password" id="password" name="password" required class="border border-gray-400 p-2 w-full">
 		<label for="passwordConfirm" class="block text-gray-700 font-medium mb-2">Retaper le mot de passe :</label>
-		<input type="password" id="passwordConfirm" name="passwordConfirm" required class="border border-gray-400 p-2 w-full bg-[#3E885B] caret-white text-white">
+		<input type="password" id="passwordConfirm" name="passwordConfirm" required class="border border-gray-400 p-2 w-full">
 		<label for="difficulty" class="block text-gray-700 font-medium mb-2">Choisir la difficulté</label>
 		<select name="difficulty" id="difficulty" class="border border-gray-400 p-2 w-full">
 			{% for difficulty in difficulties %}
