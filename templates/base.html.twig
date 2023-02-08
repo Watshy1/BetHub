@@ -6,8 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}
-			{% endblock %}
+			{% block title %}{% endblock %}
 		</title>
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
@@ -23,13 +22,20 @@
 				<a class="text-3xl text-white font-medium hover:text-gray-400" href="/">Bethub</a>
 				{% if user %}
 					<div class="w-32 bg-gray-700 text-white font-medium py-2 px-4 rounded-lg">
-					<span class="underline">Portefeuille</span> :
-						<span class="text-sm">{{ user.wallet }} €</span>
+						<span class="underline">Portefeuille</span>
+						:
+						<span class="text-sm">{{ user.wallet }}
+							€</span>
 					</div>
 				{% endif %}
 			</div>
 			{% if user %}
 				<div>
+					<a class="text-white hover:text-gray-400" href="{{ path('app_matche_create') }}">
+						<button class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+							Ajouter un matche
+						</button>
+					</a>
 					<a class="text-white hover:text-gray-400" href="{{ path('app_user_logout') }}">
 						<button class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
 							Se déconnecter
