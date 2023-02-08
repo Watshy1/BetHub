@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Matche
+{% endblock %}
+
+{% block body %}
+
+	<div class="flex flex-col items-center justify-center pt-12">
+		<h1 class="text-4xl underline mb-4">Matches</h1>
+		<div class="w-2/4 flex flex-col items-center gap-10 border py-10 px-20 mb-10">
+			<div class="flex gap-32 items-center">
+				<h2 class="text-2xl">
+					{{ matche.Player1.firstName }}
+					-
+					{{ matche.Player1.lastName }}
+				</h2>
+				<p>VS</p>
+				<h2 class="text-2xl">
+					{{ matche.Player2.firstName }}
+					-
+					{{ matche.Player2.lastName }}
+				</h2>
+			</div>
+			<a href="{{ path('app_matche_bet', {'id': matche.id}) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded">
+				Parier
+			</a>
+		</div>
+	</div>
+
+{% endblock %}
