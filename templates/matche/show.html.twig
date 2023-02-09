@@ -14,12 +14,32 @@
 					{{ matche.Player1.firstName }}
 					-
 					{{ matche.Player1.lastName }}
+					<br>
+					<span class="text-sm">
+						Pays :
+						{{ matche.Player1.Country.name }}
+					</span>
+					<br>
+					<span class="text-xs">
+						Date de naissance :
+						{{ matche.Player1.dateOfBirth|date('d/m/Y') }}
+					</span>
 				</h2>
 				<p>VS</p>
 				<h2 class="text-2xl">
 					{{ matche.Player2.firstName }}
 					-
 					{{ matche.Player2.lastName }}
+					<br>
+					<span class="text-sm">
+						Pays :
+						{{ matche.Player2.Country.name }}
+					</span>
+					<br>
+					<span class="text-xs">
+						Date de naissance :
+						{{ matche.Player2.dateOfBirth|date('d/m/Y') }}
+					</span>
 				</h2>
 			</div>
 			<a href="{{ path('app_matche_bet', {'id': matche.id}) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded">
