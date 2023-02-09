@@ -8,18 +8,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Matche;
+use App\Repository\MatcheRepository;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(MatcheRepository $matcheRepository): Response
     {
-        $matcheRepository = $doctrine->getRepository(Matche::class);
-
-        $matches = $matcheRepository->findAll();
+        $matchesWithoutScore = $matcheRepository->findMatchesWithoutScore();
 
         return $this->render('home/index.html.twig', [
-            'matches' => $matches,
+            'matches' => $matchesWithoutScore,
         ]);
     }
 }

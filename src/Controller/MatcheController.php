@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use App\Entity\Matche;
 use App\Entity\Player;
+use App\Entity\Score;
 use App\Entity\User;
 
 class MatcheController extends AbstractController
@@ -77,18 +78,66 @@ class MatcheController extends AbstractController
             $data = $formVictory->getData();
             $session = $request->getSession();
 
-            $userRepository = $doctrine->getRepository(User::class);
+            if ($session->get('user')->getWallet() >= $data['amount']) {
+                $userRepository = $doctrine->getRepository(User::class);
 
-            $userId = $session->get('user')->getId();
-            $user = $userRepository->find($userId);
+                $userId = $session->get('user')->getId();
+                $user = $userRepository->find($userId);
 
-            $session->set('user', $user);
-            $user->setWallet($user->getWallet() - $data['amount']);
+                $randSet1 = rand(0, 1);
+                $randSet2 = rand(0, 1);
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+                $scorePlayer1 = new Score();
+                $scorePlayer1->setMatche($matche);
+                $scorePlayer1->setPlayer($matche->getPlayer1());
+                $scorePlayer1->setSet1($randSet1);
+                $scorePlayer1->setSet2($randSet2);
 
-            return $this->redirectToRoute('app_home');
+                $scorePlayer2 = new Score();
+                $scorePlayer2->setMatche($matche);
+                $scorePlayer2->setPlayer($matche->getPlayer2());
+                if ($randSet1 == 0) {
+                    $scorePlayer2->setSet1(1);
+                } else {
+                    $scorePlayer2->setSet1(0);
+                }
+                if ($randSet2 == 0) {
+                    $scorePlayer2->setSet2(1);
+                } else {
+                    $scorePlayer2->setSet2(0);
+                }
+
+                if ($data['player'] == $matche->getPlayer1()->getId()) {
+                    if ($randSet1 == 1 && $randSet2 == 1) {
+                        $user->setWallet($user->getWallet() + $data['amount']);
+                        $session->set('user', $user);
+                    } elseif ($randSet1 != $randSet2) {
+                        $user->setWallet($user->getWallet());
+                        $session->set('user', $user);
+                    } else {
+                        $user->setWallet($user->getWallet() - $data['amount']);
+                        $session->set('user', $user);
+                    }
+                } else if ($data['player'] == $matche->getPlayer2()->getId()) {
+                    if ($randSet1 == 1 && $randSet2 == 1) {
+                        $user->setWallet($user->getWallet() - $data['amount']);
+                        $session->set('user', $user);
+                    } elseif ($randSet1 != $randSet2) {
+                        $user->setWallet($user->getWallet());
+                        $session->set('user', $user);
+                    } else {
+                        $user->setWallet($user->getWallet() + $data['amount']);
+                        $session->set('user', $user);
+                    }
+                }
+
+                $entityManager->persist($scorePlayer1);
+                $entityManager->persist($scorePlayer2);
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_home');
+            }
         }
 
         return $this->render('matche/bet.html.twig', [
